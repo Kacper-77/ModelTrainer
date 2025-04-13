@@ -10,14 +10,19 @@ from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from fastapi.templating import Jinja2Templates
+from dotenv import load_dotenv
+import os
+
+
+load_dotenv()
 
 router = APIRouter(
     prefix='/auth',
     tags=['auth']
 )
 
-SECRET_KEY = '197b2c37c391bed93fe80344fe73b806947a65e36206e05a6thsi987129'
-ALGORITHM = 'HS256'
+SECRET_KEY = os.getenv('SECRET_KEY')
+ALGORITHM = os.getenv('ALGORITHM')
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/token')
